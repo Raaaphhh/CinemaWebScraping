@@ -2,17 +2,15 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from scraper import CineScraper
 
-# Initialisation
+
 url = "https://cinecentre.fr/FR/9/cinema-cinecentre-dreux.html"
 scraper = CineScraper(url)
 films = scraper.get_film()
 
-# Création de la fenêtre
 root = tk.Tk()
 root.title("🎬 Horaires Cinéma Dreux")
 root.geometry("500x500")
 
-# Liste déroulante
 label = tk.Label(root, text="Choisis un film :", font=("Arial", 12))
 label.pack(pady=10)
 
@@ -20,7 +18,6 @@ combo = ttk.Combobox(root, values=[film["titre"] for film in films], font=("Aria
 combo.pack(pady=5)
 combo.current(0)
 
-# Zone de texte pour les horaires
 text = tk.Text(root, height=20, width=60, wrap=tk.WORD)
 text.pack(pady=10)
 
@@ -30,7 +27,6 @@ def afficher_horaires():
     url_film = scraper.get_CreateNewUrl(film["code"], film["titre"])
     
     try:
-        # Capture les prints dans une variable
         import io
         import sys
         old_stdout = sys.stdout
@@ -45,7 +41,6 @@ def afficher_horaires():
     except Exception as e:
         messagebox.showerror("Erreur", str(e))
 
-# Bouton
 btn = tk.Button(root, text="Afficher les horaires", command=afficher_horaires, font=("Arial", 11))
 btn.pack(pady=10)
 
